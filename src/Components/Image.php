@@ -6,55 +6,44 @@ use Collective\Html\FormFacade;
 
 class Image extends HtmlComponent
 {
-    protected function imageInputScript()
-    {
-        return <<<HTML
-            $('.media-remove').click(function () {
-                let frame = $(this).closest('.image-frame');
-                let forInput = $(this).attr('for');
-                frame.removeClass('exists');
-                frame.find('[name=selecting__'+forInput+']').removeAttr('value');
-                frame.find('[name=removing__'+forInput+']').val('1');
-                if (frame.is('[required]')) {
-                    frame.find('[name=selecting__'+forInput+']').prop('required', true);
-                }
-            });
-
-            $.fn.midiaOptions.onChoose = function (file) {
-                let preview = $('#' + file.preview);
-                let frame = preview.closest('.image-frame');
-                let forInput = frame.data('image');
-                frame.addClass('exists');
-                frame.find('[name=selecting__'+forInput+']').val(file.identifier);
-                frame.find('[name=removing__'+forInput+']').removeAttr('value');
-            };
-HTML;
-    }
-
-    protected function defaultJavascript()
-    {
-        return $this->imageInputScript();
-    }
-
     public function render()
     {
         extract($this->params);
-        $attributes['placeholder'] = $attributes['placeholder'] ?? __('Empty');
 
-        return
-            '<div class="form-group" id="'.$name.'__parent">'.
-                FormFacade::label($name, $label, ['class' => 'control-label']).
-                '<div data-image="'.$name.'" class="'.(!empty($value) ? 'exists' : ''). ' image-frame text-center" style="max-width: 280px" '.(isset($attributes['required']) ? 'required' : '').'>'.
-                    '<img id="preview__'.$name.'" '.($value ? 'src="'.$value->getFullUrl('thumb').'"' : '').' class="media-file img-responsive" alt="'.$label.'" style="margin: 20px auto;">'.
-                    '<a class="btn btn-fill btn-block midia-toggle" data-preview="preview__'.$name.'">'.
-                        '<span class="media-select">'. __('Select Image') .'</span>'.
-                        '<span class="media-change">'. __('Change Image') .'</span>'.
-                    '</a>'.
-                    '<a class="btn btn-fill btn-block media-remove" for="'.$name.'" style="background-color: #bf6a6a;">'. __('Remove') .'</a>'.
-                    FormFacade::hidden('selecting__'.$name, null, ['class' => 'input-image need-validation']).
-                    FormFacade::hidden('removing__'.$name).
-                '</div>'.
-            '</div>';
+        $labelHtml = FormFacade::label($name, $label, ['class' => 'control-label']);
+        $exists = !empty($value) ? 'exists' : '';
+        $imageHtml = $value === null
+                        ? '<div class="no-image">'. __('No Image') .'</div>'
+                        : '<img src="'.$value->getFullUrl('thumb').'" class="img-responsive" alt="'.$label.'" style="max-width: 300px">';
+        $btnLabel = $value === null ? __('Choose Photo To Upload') : __('Choose Photo To Change');
+        $fileHtml = FormFacade::file($name, array_merge(['class' => 'form-control border-input', 'data-label' => $label], $attributes));
+        $imageHtml = 
+        $checkbox = $value !== null
+                    ?   '<div class="checkbox">'.
+                            FormFacade::checkbox('removing__'.$name, true).
+                            '<label for="removing__'.$name.'">'.
+                                     __('Remove image when save').
+                            '</label>'.
+                        '</div>'
+                    : '';
+
+
+
+        return <<<HTML
+            <div class="form-group" id="{$name}__parent">
+                {$labelHtml}
+                <div data-image="{$name}" class="{$exists}">
+                    <div class="image-frame">
+                        {$imageHtml}
+                    </div>
+                    <div class="block">
+                        <label for="{$name}">{$btnLabel}</label>
+                        {$fileHtml}
+                        {$checkbox}
+                    </div>
+                </div>
+            </div>
+HTML;
 
     }
 }

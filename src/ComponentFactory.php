@@ -24,7 +24,6 @@ class ComponentFactory
             'number' => \LiveCMS\Form\Components\Number::class,
             'checkbox' => \LiveCMS\Form\Components\Checkbox::class,
             'email' => \LiveCMS\Form\Components\Email::class,
-            'image-legacy' => \LiveCMS\Form\Components\ImageLegacy::class,
             'image' => \LiveCMS\Form\Components\Image::class,
             'money' => \LiveCMS\Form\Components\Money::class,
             'password' => \LiveCMS\Form\Components\Password::class,
