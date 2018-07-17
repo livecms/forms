@@ -1,0 +1,28 @@
+{
+    "name": "livecms/forms",
+    "description": "Live CMS Forms",
+    "homepage": "https://gitlab.com/livecms/forms",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mokhamad Rofiudin",
+            "email": "mokh.rofiudin@gmail.com"
+        }
+    ],
+    "required": {
+        "livecms/transports": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.com:livecms/transports.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LiveCMS\\Form\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
