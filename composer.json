@@ -9,7 +9,7 @@
             "email": "mokh.rofiudin@gmail.com"
         }
     ],
-    "required": {
+    "require": {
         "livecms/transports": "dev-master"
     },
     "repositories": [
