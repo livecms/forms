@@ -2,8 +2,6 @@
 
 namespace LiveCMS\Form\Components;
 
-use Collective\Html\FormFacade;
-
 abstract class BaseComponent
 {
     protected $params = [

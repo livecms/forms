@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "laravelcollective/htmllivecms/transports": "dev-master",
         "livecms/transports": "dev-master"
     },
     "repositories": [
