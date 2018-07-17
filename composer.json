@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "laravelcollective/htmllivecms/transports": "dev-master",
-        "livecms/transports": "dev-master"
+        "livecms/transports": "dev-master",
+        "laravelcollective/html": "^5.5"
     },
     "repositories": [
         {
