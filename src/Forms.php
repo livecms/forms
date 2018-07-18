@@ -140,7 +140,7 @@ HTML;
         return $this;
     }
 
-    public function render()
+    public function render($flush = false)
     {
         $this->extract();
         $html = '';
@@ -153,6 +153,9 @@ HTML;
                 $this->javascriptTransport->append($js);
                 
             }
+        }
+        if ($flush) {
+            $this->formTransport->flush($this->id);
         }
         return $html;
     }

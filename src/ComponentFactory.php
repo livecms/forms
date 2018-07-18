@@ -35,7 +35,7 @@ class ComponentFactory
             'boolean' => \LiveCMS\Form\Components\Boolean::class,
         ];
 
-        $components = array_replace($available, config('form.component.available', []));
+        $components = array_replace($available, config('form.components', []));
 
         if (isset($components[$type])) {
             return $components[$type];
