@@ -2,7 +2,7 @@
 
 namespace LiveCMS\Form;
 
-use LiveCMS\Transport\FormTransport;
+use LiveCMS\Transport\HtmlTransport;
 use LiveCMS\Transport\JavascriptTransport;
 
 class Forms
@@ -17,7 +17,7 @@ class Forms
     protected $globalProperties = [];
     protected $additionalProperties = [];
 
-    public function __construct(ComponentFactory $factory, FormTransport $form, JavascriptTransport $js)
+    public function __construct(ComponentFactory $factory, HtmlTransport $form, JavascriptTransport $js)
     {
         $this->factory = $factory;
         $this->formTransport = $form;
