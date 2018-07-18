@@ -2,8 +2,6 @@
 
 namespace LiveCMS\Form\Components;
 
-use Collective\Html\FormFacade;
-
 class Money extends Number
 {
     public function render()

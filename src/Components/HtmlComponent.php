@@ -2,8 +2,6 @@
 
 namespace LiveCMS\Form\Components;
 
-use Collective\Html\FormFacade;
-
 class HtmlComponent extends BaseComponent
 {
     public function __construct($name, array $setting)

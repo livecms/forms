@@ -2,13 +2,11 @@
 
 namespace LiveCMS\Form\Components;
 
-use Collective\Html\FormFacade;
-
 class Boolean extends Radio
 {
     public function render()
     {
-        $this->params['options'] = [1 => 'Yes', 0 => 'No'];
+        $this->params['options'] = [1 => __('Yes'), 0 => __('No')];
         return parent::render();
     }
 }

@@ -2,8 +2,6 @@
 
 namespace LiveCMS\Form\Components;
 
-use Collective\Html\FormFacade;
-
 class Separator extends HtmlComponent
 {
     public function render()
