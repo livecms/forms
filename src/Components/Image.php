@@ -14,7 +14,7 @@ class Image extends HtmlComponent
         $exists = !empty($value) ? 'exists' : '';
         $imageHtml = $value === null
                         ? '<div class="no-image">'. __('No Image') .'</div>'
-                        : '<img src="'.$value->getFullUrl('thumb').'" class="img-responsive" alt="'.$label.'" style="max-width: 300px">';
+                        : '<img src="'.$value.'" class="img-responsive" alt="'.$label.'" style="max-width: 300px">';
         $btnLabel = $value === null ? __('Choose Photo To Upload') : __('Choose Photo To Change');
         $fileHtml = FormFacade::file($name, array_merge(['class' => 'form-control border-input', 'data-label' => $label], $attributes));
         $imageHtml = 
