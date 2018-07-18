@@ -17,7 +17,6 @@ class Image extends HtmlComponent
                         : '<img src="'.$value.'" class="img-responsive" alt="'.$label.'" style="max-width: 300px">';
         $btnLabel = $value === null ? __('Choose Photo To Upload') : __('Choose Photo To Change');
         $fileHtml = FormFacade::file($name, array_merge(['class' => 'form-control border-input', 'data-label' => $label], $attributes));
-        $imageHtml = 
         $checkbox = $value !== null
                     ?   '<div class="checkbox">'.
                             FormFacade::checkbox('removing__'.$name, true).
