@@ -19,7 +19,6 @@ class Select2 extends HtmlComponent
                             active = false;
                         }
                     });
-
                     if (active) {
                         input.prop('disabled', false);
                         const validator = input.closest('form').data('validation');
@@ -51,7 +50,6 @@ class Select2 extends HtmlComponent
                                     query[item] = $('[name='+item+']').val();
                                 });
                             }
-
                             return query;
                         },
                         processResults: function (data) {
@@ -71,7 +69,6 @@ class Select2 extends HtmlComponent
                         $(this).valid();
                     }
                 });
-
 
                 $.ajax({
                     type: 'GET',
@@ -146,7 +143,6 @@ class Select2 extends HtmlComponent
                     }
                 });
             }
-
 HTML;
     }
 
