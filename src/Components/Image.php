@@ -2,6 +2,7 @@
 
 namespace LiveCMS\Form\Components;
 
+use App\Services\MediaLibrary\Media;
 use Collective\Html\FormFacade;
 
 class Image extends HtmlComponent

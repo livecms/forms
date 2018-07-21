@@ -22,7 +22,10 @@ class Select2 extends HtmlComponent
 
                     if (active) {
                         input.prop('disabled', false);
-                        input.closest('form').data('validation').element('#'+input.attr('id'));
+                        const validator = input.closest('form').data('validation');
+                        if (validator) {
+                            validator.element('#'+input.attr('id'));
+                        }
                     } else {
                         input.prop('disabled', true);
                     }
@@ -107,6 +110,42 @@ class Select2 extends HtmlComponent
 
                 });
             });
+
+            if ($.validator) {
+                $.validator.setDefaults({ 
+                    highlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        elem.addClass(errorClass);
+                        if (elem.hasClass("select2-hidden-accessible")) {
+                           $("#select2-" + elem.attr("id") + "-container").parent().addClass(errorClass).removeClass('validClass'); 
+                        } else if ( element.type === "radio" ) {
+                            this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
+                        } else {
+                           elem.addClass(errorClass);
+                        }
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        var elem = $(element);
+                        elem.removeClass(errorClass);
+                        if (elem.hasClass("select2-hidden-accessible")) {
+                            $("#select2-" + elem.attr("id") + "-container").parent().removeClass(errorClass).addClass('validClass');
+                        } else if ( element.type === "radio" ) {
+                            this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
+                        } else {
+                            elem.removeClass(errorClass).addClass('validClass');
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        var elem = $(element);
+                        if (elem.hasClass("select2-hidden-accessible")) {
+                           element = $("#select2-" + elem.attr("id") + "-container").parent(); 
+                           error.insertAfter(element);
+                        } else {
+                           error.insertAfter(element);
+                        }
+                    }
+                });
+            }
 
 HTML;
     }

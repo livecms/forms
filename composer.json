@@ -10,15 +10,9 @@
         }
     ],
     "require": {
-        "livecms/transports": "dev-master",
+        "livecms/transports": "^0.1.0",
         "laravelcollective/html": "^5.5"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@gitlab.com:livecms/transports.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "LiveCMS\\Form\\": "src/"

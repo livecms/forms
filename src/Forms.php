@@ -2,12 +2,15 @@
 
 namespace LiveCMS\Form;
 
+use Collective\Html\FormFacade;
+use Exception;
 use LiveCMS\Transport\HtmlTransport;
 use LiveCMS\Transport\JavascriptTransport;
 
 class Forms
 {
     protected $id;
+    protected $form;
     protected $factory;
     protected $setting;
     protected $formTransport;
@@ -16,6 +19,7 @@ class Forms
     protected $data = [];
     protected $globalProperties = [];
     protected $additionalProperties = [];
+    protected $validation = false;
 
     public function __construct(ComponentFactory $factory, HtmlTransport $form, JavascriptTransport $js)
     {
@@ -23,6 +27,15 @@ class Forms
         $this->formTransport = $form;
         $this->javascriptTransport = $js;
         $this->generateFormId();
+    }
+
+    public static function create(array $options = [])
+    {
+        $instance = app(static::class);
+        if (count($options)) {
+            $instance->form = FormFacade::open($options);
+        }
+        return $instance;
     }
 
     protected function generateFormId()
@@ -36,7 +49,7 @@ class Forms
         return $this->id;
     }
 
-    public function set($setting)
+    public function setComponents($setting)
     {
         $this->setting = $setting;
         return $this;
@@ -85,58 +98,18 @@ class Forms
 
     protected function validationScript()
     {
-        return <<<HTML
-            $.validator.setDefaults({ 
-                ignore: ":hidden:not(.need-validation)",
-                // any other default options and/or rules
-                highlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    elem.addClass(errorClass);
-                    if (elem.hasClass("select2-hidden-accessible")) {
-                       $("#select2-" + elem.attr("id") + "-container").parent().addClass(errorClass).removeClass('validClass'); 
-                    } else if ( element.type === "radio" ) {
-                        this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
-                    } else {
-                       elem.addClass(errorClass);
-                    }
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    var elem = $(element);
-                    elem.removeClass(errorClass);
-                    if (elem.hasClass("select2-hidden-accessible")) {
-                        $("#select2-" + elem.attr("id") + "-container").parent().removeClass(errorClass).addClass('validClass');
-                    } else if ( element.type === "radio" ) {
-                        this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
-                    } else {
-                        elem.removeClass(errorClass).addClass('validClass');
-                    }
-                },
-                errorPlacement: function(error, element) {
-                    var elem = $(element);
-                    if (elem.hasClass("select2-hidden-accessible")) {
-                       element = $("#select2-" + elem.attr("id") + "-container").parent(); 
-                       error.insertAfter(element);
-                    } else {
-                       error.insertAfter(element);
-                    }
-                }
-            });
-
-            $('form').each(function () {
-                $(this).data('validation', $(this).validate());
-                $(this).data('identifier', id = $(this).find(':input').map(function () {
-                    return $(this).attr('id');
-                }).get().join('.'));
-                $('<input type="hidden" name="_identifier" value="'+id+'">').insertAfter($(this).find('[name=_token]'));
-
-            });
-                
-HTML;
+        if ($file = config('form.scripts.validation')) {
+            if (file_exists($file)) {
+                return file_get_contents($file);
+            }
+            throw new Exception("File not found {$file}");
+        }
+        return null;
     }
 
-    public function addValidation()
+    public function useValidation($true = true)
     {
-        $this->javascriptTransport->append($this->validationScript());
+        $this->validation = $true;
         return $this;
     }
 
@@ -144,19 +117,29 @@ HTML;
     {
         $this->extract();
         $html = '';
+
         foreach ($this->components as $key => $component) {
-            $this->formTransport->append(
-                $html .= $component->setValue($this->getData($key))->toHtml(),
-                $this->id
-            );
+            $html .= $component->setValue($this->getData($key))->toHtml();
             foreach ($component->toJavascript() as $js) {
                 $this->javascriptTransport->append($js);
-                
             }
         }
+
+        $close = $this->form ? FormFacade::close() : null;
+
+        $this->formTransport->append(
+            $code = $this->form . $html . $close,
+            $this->id
+        );
+
         if ($flush) {
             $this->formTransport->flush($this->id);
         }
-        return $html;
+
+        if ($this->validation) {
+            $this->javascriptTransport->append($this->validationScript());
+        }
+
+        return $code;
     }
 }

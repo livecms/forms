@@ -7,6 +7,10 @@ return [
      */
     'components' => [
         //
-    ]
+    ],
+
+    'scripts' => [
+        'validation' => base_path('vendor/livecms/forms/scripts/validation.js'),
+    ],
 
 ];
