@@ -13,7 +13,6 @@ Besides that, You can also create your own component consist of html and javascr
     - Textbox
     - Telephone
     - Number
-    - Money
     - Email
     - Password
     - Textarea
@@ -25,6 +24,9 @@ Besides that, You can also create your own component consist of html and javascr
     - Boolean (Radio button with Yes/No options)
 - Define your own component
 - Define your own validation script
+
+### Notes
+You need add [Jquery Validation](https://jqueryvalidation.org) to use default validation properly, but you can use your own script. See [Custom Validation Section](#custom-validation).
 
 ## How to use?
 
@@ -96,7 +98,6 @@ you can see the files in folder :
 - Textbox, type : 'text'
 - Telephone, type : 'tel'
 - Number, type : 'number'
-- Money, type : 'money'
 - Email, type : 'email'
 - Password, type : 'password'
 - Textarea, type : 'textarea'
