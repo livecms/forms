@@ -209,6 +209,19 @@ If you want to cancel adding script, fill second argument with 'false':
 ->addScript('script_name', false)
 ```
 
+### Fill form with datas
+```php
+$components = [
+    'name' => ['type' => 'text'],
+    'email' => ['type' => 'email'],
+];
+$datas = ['name' => 'Mokhamad Rofiudin', 'email' => 'mokh@rofiudin.com'];
+Form::create([...])
+    ->setComponents($components)
+    ->fill($datas)
+    ->setName('form1')
+    ->render();
+```
 
 ## LICENSE
 MIT
