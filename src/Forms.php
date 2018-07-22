@@ -152,8 +152,8 @@ class Forms
             $this->formTransport->flush($this->id);
         }
 
-        if ($this->validation) {
-            $this->javascriptTransport->append($this->validationScript());
+        foreach ($this->scripts as $script) {
+            $this->javascriptTransport->append($script);
         }
 
         return $code;
