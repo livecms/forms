@@ -25,8 +25,8 @@ class FormServiceProvider extends ServiceProvider
             $name = Route::currentRouteName();
             return app(HtmlTransport::class)->set($form, $name);
         });
-        FormFacade::macro('render', function () {
-            $name = Route::currentRouteName();
+        FormFacade::macro('render', function ($name = null) {
+            $name = $name ?? Route::currentRouteName();
             return app(HtmlTransport::class)->get($name);
         });
         FormFacade::macro('javascript', function () {

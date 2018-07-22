@@ -19,7 +19,7 @@ class Forms
     protected $data = [];
     protected $globalProperties = [];
     protected $additionalProperties = [];
-    protected $validation = false;
+    protected $scripts = [];
 
     public function __construct(ComponentFactory $factory, HtmlTransport $form, JavascriptTransport $js)
     {
@@ -49,6 +49,17 @@ class Forms
         return $this->id;
     }
 
+    public function setName($name)
+    {
+        $this->id = $name;
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->getId();
+    }
+
     public function setComponents($setting)
     {
         $this->setting = $setting;
@@ -59,7 +70,7 @@ class Forms
     {
         foreach ($properties as $key => $value) {
             list($propKey, $propValue) = explode(':', $key.':');
-            $propValue = empty($propValue) ? true : $propValue;
+            $propValue = empty($propValue) ? $propKey : $propValue;
             if (empty($value) || $value == '*') {
                 $this->globalProperties[$propKey] = $propValue;
             } else {
@@ -96,21 +107,26 @@ class Forms
         return $this->data[$key] ?? null;
     }
 
-    protected function validationScript()
+    public function addScript($name, $true = true)
     {
-        if ($file = config('form.scripts.validation')) {
-            if (file_exists($file)) {
-                return file_get_contents($file);
+        if ($true) {
+            if ($file = config('form.scripts.'.$name)) {
+                if (file_exists($file)) {
+                    $this->scripts[$name] = file_get_contents($file);
+                    return $this;
+                }
+                throw new Exception("File not found {$file}");
             }
-            throw new Exception("File not found {$file}");
+
+            throw new Exception("Script not defined in config");
         }
-        return null;
+        unset($this->scripts[$name]);
+        return $this;
     }
 
     public function useValidation($true = true)
     {
-        $this->validation = $true;
-        return $this;
+        return $this->addScript('validation', $true);
     }
 
     public function render($flush = false)
