@@ -1,7 +1,7 @@
 {
     "name": "livecms/forms",
     "description": "Live CMS Forms",
-    "homepage": "https://gitlab.com/livecms/forms",
+    "homepage": "https://github.com/livecms/forms",
     "license": "MIT",
     "authors": [
         {
@@ -24,7 +24,5 @@
                 "LiveCMS\\Form\\FormServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
