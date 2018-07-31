@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "livecms/transports": "^0.1.0",
+        "livecms/transports": "^0.0",
         "laravelcollective/html": "^5.5"
     },
     "autoload": {
