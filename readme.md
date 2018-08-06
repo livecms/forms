@@ -26,7 +26,8 @@ Besides that, You can also create your own component consist of html and javascr
 - Define your own validation script
 
 ### Notes
-You need add [Jquery Validation](https://jqueryvalidation.org) to use default validation properly, but you can use your own script. See [Custom Validation Section](#custom-validation).
+- You need add [Jquery Validation](https://jqueryvalidation.org) to use default validation properly, but you can use your own script. See [Custom Validation Section](#custom-validation).
+- Add [Select2 Files](https://select2.org/) if you want to use Select2 Component
 
 ## How to use?
 
