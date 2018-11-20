@@ -33,6 +33,8 @@ class ComponentFactory
             'separator' => \LiveCMS\Form\Components\Separator::class,
             'tel' => \LiveCMS\Form\Components\Tel::class,
             'boolean' => \LiveCMS\Form\Components\Boolean::class,
+            'imagemidia' => \LiveCMS\Form\Components\ImageMidia::class,
+            'tinymce' => \LiveCMS\Form\Components\TinyMCE::class,
         ];
 
         $components = array_replace($available, config('form.components', []));
