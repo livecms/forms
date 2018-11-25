@@ -42,7 +42,7 @@ class TinyMCEMidia extends HtmlComponent
                 }
             };
 
-            tinymce.init(editor_config);z
+            tinymce.init(editor_config);
 HTML;
     }
 
