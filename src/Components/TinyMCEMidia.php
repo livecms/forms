@@ -15,7 +15,7 @@ class TinyMCEMidia extends HtmlComponent
     {
         return <<<HTML
             var editor_config = {
-                path_absolute: "{{url('')}}/",
+                path_absolute: "/",
                 selector: "textarea.tinymce-midia",
                 plugins: [
                   "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -29,7 +29,7 @@ class TinyMCEMidia extends HtmlComponent
                   var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
                   var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-                  var cmsURL = editor_config.path_absolute + 'midia/open/tinymce4?field_name=' + field_name;
+                  var cmsURL = $.fn.midia.defaultSettings.tinyMCEUrl + '?field_name=' + field_name;
 
                   tinyMCE.activeEditor.windowManager.open({
                     file: cmsURL,
