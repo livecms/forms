@@ -24,6 +24,7 @@ class ComponentFactory
     protected function getComponent($type)
     {
         $available = [
+            'hidden' => \LiveCMS\Form\Components\Hidden::class,
             'text' => \LiveCMS\Form\Components\Text::class,
             'textarea' => \LiveCMS\Form\Components\Textarea::class,
             'number' => \LiveCMS\Form\Components\Number::class,
@@ -38,6 +39,9 @@ class ComponentFactory
             'separator' => \LiveCMS\Form\Components\Separator::class,
             'tel' => \LiveCMS\Form\Components\Tel::class,
             'boolean' => \LiveCMS\Form\Components\Boolean::class,
+            'button' => \LiveCMS\Form\Components\Button::class,
+            'link' => \LiveCMS\Form\Components\Link::class,
+            'link-button' => \LiveCMS\Form\Components\LinkButton::class,
             'image-midia' => $this->hasMediaLibrary() ? \LiveCMS\Form\Components\ImageMidia::class : \LiveCMS\Form\Components\Image::class,
             'tinymce' => \LiveCMS\Form\Components\TinyMCE::class,
             'tinymce-midia' => $this->hasMediaLibrary() ? \LiveCMS\Form\Components\TinyMCEMidia::class : \LiveCMS\Form\Components\TinyMCE::class,
