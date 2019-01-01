@@ -60,11 +60,11 @@ HTML;
                 FormFacade::label($name, $label, ['class' => 'control-label']).
                 '<div id="preview__'.$name.'" data-image="'.$name.'" class="'.($exists ? 'exists' : ''). ' image-frame text-center" style="max-width: 280px" '.(isset($attributes['required']) ? 'required' : '').'>'.
                     '<img id="image_preview__'.$name.'" src="'.($value ? $value->getFullUrl('thumb') : '').'" class="media-file img-responsive" alt="'.$label.'" style="margin: 20px auto;'. (!$exists ? 'display: none;' : ''). '">'.
-                    '<a class="btn btn-primary btn-fill btn-block midia-toggle" data-preview="image_preview__'.$name.'" '.($value ? 'data-midia-initial_preview=""' : '').' style="background-color: #333; border-radius: 20px;">'.
+                    '<div class="btn btn-primary btn-fill btn-block midia-toggle" data-preview="image_preview__'.$name.'" '.($value ? 'data-midia-initial_preview=""' : '').' style="background-color: #333; border-radius: 20px;">'.
                         '<span class="media-select" '. ($exists ? 'style="display: none;"' : '').'>'. __('Select Image') .'</span>'.
                         '<span class="media-change" '. (!$exists ? 'style="display: none;"' : '').'>'. __('Change Image') .'</span>'.
-                    '</a>'.
-                    '<a class="btn btn-danger btn-fill btn-block media-remove" for="'.$name.'" style="background-color: #bf6a6a; border-radius: 20px; '. (!$exists ? 'display: none;' : ''). '">'. __('Remove') .'</a>'.
+                    '</div>'.
+                    '<div class="btn btn-danger btn-fill btn-block media-remove" for="'.$name.'" style="background-color: #bf6a6a; border-radius: 20px; '. (!$exists ? 'display: none;' : ''). '">'. __('Remove') .'</div>'.
                     FormFacade::hidden('selecting__'.$name, null, ['class' => 'input-image need-validation']).
                     FormFacade::hidden('removing__'.$name).
                 '</div>'.
